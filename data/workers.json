@@ -1,0 +1,25 @@
+{
+    "workers": [
+        {
+            "id": "W001",
+            "name": "John Smith",
+            "phone": "555-123-4567",
+            "status": "available",
+            "created_at": "2025-03-19 08:00:00"
+        },
+        {
+            "id": "W002",
+            "name": "Sarah Johnson",
+            "phone": "555-987-6543",
+            "status": "available",
+            "created_at": "2025-03-19 08:00:00"
+        },
+        {
+            "id": "W003",
+            "name": "Michael Davis",
+            "phone": "555-456-7890",
+            "status": "available",
+            "created_at": "2025-03-19 08:00:00"
+        }
+    ]
+}

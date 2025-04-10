@@ -1,0 +1,107 @@
+/* Main Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Card animations */
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard widgets */
+.card-header {
+    font-weight: bold;
+}
+
+.progress {
+    height: 25px;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Alerts styling */
+.alert-danger,
+.border-danger .card-header {
+    background-color: #dc3545;
+    color: white;
+}
+
+.alert-warning,
+.border-warning .card-header {
+    background-color: #ffc107;
+    color: white;
+}
+
+.alert-success,
+.border-success .card-header {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Worker cards */
+.worker-card {
+    height: 100%;
+}
+
+/* Navbar active item */
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
+/* Modal styling */
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+/* Table styling */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Badge styling */
+.badge {
+    font-weight: 600;
+    padding: 0.4em 0.6em;
+}
+
+/* Footer styling */
+footer {
+    margin-top: auto;
+    background-color: #343a40;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-header h5 {
+        font-size: 1rem;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.75rem;
+    }
+}

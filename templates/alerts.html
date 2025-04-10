@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4"><i class="fas fa-bell me-2"></i>Alert Management</h2>
+
+<!-- Alert Cards -->
+{% if alerts %}
+    {% for alert in alerts %}
+        <div class="card mb-4 {% if alert.severity == 'high' %}border-danger{% elif alert.severity == 'moderate' %}border-warning{% else %}border-success{% endif %}">
+            <div class="card-header d-flex justify-content-between align-items-center {% if alert.severity == 'high' %}bg-danger{% elif alert.severity == 'moderate' %}bg-warning{% else %}bg-success{% endif %} text-white">
+                <div>
+        <h5 class="mb-0">Bin ID: {{ alert.bin_id }}</h5>
+        <small>{{ alert.address }} - {{ alert.area }}</small>
+    </div>
+    <span class="badge {% if alert.severity == 'high' %}bg-light text-danger{% elif alert.severity == 'moderate' %}bg-light text-warning{% else %}bg-light text-success{% endif %}">
+        {{ alert.severity|capitalize }}
+    </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>Fill Level</h6>
+                        <div class="progress mb-3" style="height: 25px;">
+                            <div class="progress-bar {% if alert.severity == 'high' %}bg-danger{% elif alert.severity == 'moderate' %}bg-warning{% else %}bg-success{% endif %}" 
+                                 role="progressbar" 
+                                 style="width: {{ alert.fill_level }}%;" 
+                                 aria-valuenow="{{ alert.fill_level }}" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                {{ alert.fill_level }}%
+                            </div>
+                        </div>
+                        <p><strong>Created:</strong> {{ alert.created_at }}</p>
+                        <p><strong>Last Update:</strong> {{ alert.updated_at }}</p>
+                    </div>
+                    <div class="col-md-8">
+                        <h6>Assigned Workers</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if alert.assigned_workers %}
+                                        {% for worker in alert.assigned_workers %}
+                                            <tr>
+                                                <td>{{ worker.id }}</td>
+                                                <td>{{ worker.name }}</td>
+                                                <td>{{ worker.phone }}</td>
+                                                <td>
+                                                    <a href="{{ url_for('unassign_worker', alert_id=alert.id, worker_id=worker.id) }}" 
+                                                       class="btn btn-sm btn-outline-danger">
+                                                        <i class="fas fa-user-minus"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">No workers assigned yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Assign Worker Form -->
+                        {% if available_workers %}
+                            <form action="{{ url_for('assign_worker') }}" method="POST" class="mt-3">
+                                <input type="hidden" name="alert_id" value="{{ alert.id }}">
+                                <div class="input-group">
+                                    <select name="worker_id" class="form-select">
+                                        <option value="">-- Select Worker --</option>
+                                        {% for worker in available_workers %}
+                                            <option value="{{ worker.id }}">{{ worker.name }} ({{ worker.id }})</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-user-plus me-1"></i>Assign
+                                    </button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <div class="alert alert-warning mt-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i>No available workers to assign
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <a href="{{ url_for('resolve_alert', alert_id=alert.id) }}" 
+                   class="btn btn-success" 
+                   onclick="return confirm('Are you sure you want to mark this alert as resolved?')">
+                    <i class="fas fa-check-circle me-1"></i>Mark as Resolved
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="alert alert-info text-center">
+        <i class="fas fa-info-circle me-2"></i>No active alerts at the moment
+    </div>
+{% endif %}
+{% endblock %}

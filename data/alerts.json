@@ -1,0 +1,32 @@
+{
+    "alerts": [
+        {
+            "id": "alert_1",
+            "bin_id": "BIN001",
+            "fill_level": 85,
+            "severity": "high",
+            "status": "resolved",
+            "created_at": "2025-03-19 10:30:00",
+            "updated_at": "2025-03-19 10:30:00",
+            "resolved_at": "2025-03-21 10:19:37"
+        },
+        {
+            "id": "alert_2",
+            "bin_id": "BIN002",
+            "fill_level": 45,
+            "severity": "moderate",
+            "status": "active",
+            "created_at": "2025-03-19 11:15:00",
+            "updated_at": "2025-03-19 11:15:00"
+        },
+        {
+            "id": "alert_3",
+            "bin_id": "BIN003",
+            "fill_level": 15,
+            "severity": "low",
+            "status": "active",
+            "created_at": "2025-03-19 11:45:00",
+            "updated_at": "2025-03-19 11:45:00"
+        }
+    ]
+}
