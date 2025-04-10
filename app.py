@@ -18,12 +18,12 @@ app = Flask(__name__)
 app.secret_key = APP_CONFIG["SECRET_KEY"]
 
 # Data file paths
-DATA_DIR = DATA_CONFIG["DATA_DIR"]
+DATA_DIR = os.environ.get("DATA_DIR", DATA_CONFIG["DATA_DIR"])
 WORKERS_FILE = os.path.join(DATA_DIR, DATA_CONFIG["WORKERS_FILE"])
 ALERTS_FILE = os.path.join(DATA_DIR, DATA_CONFIG["ALERTS_FILE"])
 ASSIGNMENTS_FILE = os.path.join(DATA_DIR, DATA_CONFIG["ASSIGNMENTS_FILE"])
-
 # Create data directory if it doesn't exist
+BINS_FILE = os.path.join(DATA_DIR, DATA_CONFIG["BINS_FILE"])
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 
@@ -548,6 +548,4 @@ def delete_bin(bin_id):
 
 
 if __name__ == "__main__":
-    BINS_FILE = os.path.join(DATA_DIR, DATA_CONFIG["BINS_FILE"])
-    initialize_json_file(BINS_FILE, {"bins": []})
     app.run(debug=APP_CONFIG["DEBUG"], host=APP_CONFIG["HOST"], port=APP_CONFIG["PORT"])

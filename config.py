@@ -1,13 +1,13 @@
 """
 Configuration settings for the Garbage Collection Management System.
 """
-
+import os
 # Flask application configuration
 APP_CONFIG = {
-    "DEBUG": True,  # Set to False in production
-    "SECRET_KEY": "garbage_collection_app_secret_key",  # Change this in production
+    "DEBUG": os.environ.get("DEBUG", "True").lower() == "true",
+    "SECRET_KEY": os.environ.get("SECRET_KEY", "garbage_collection_app_secret_key"),
     "HOST": "0.0.0.0",
-    "PORT": 5000,
+    "PORT": int(os.environ.get("PORT", 5000)),
 }
 
 # Data file paths
