@@ -252,7 +252,6 @@ def change_worker_status(worker_id, status):
 
 
 @app.route("/alerts")
-@login_required
 def alerts():
     alerts_data = read_json(ALERTS_FILE)
     workers_data = read_json(WORKERS_FILE)
@@ -415,7 +414,21 @@ def unassign_worker(alert_id, worker_id):
 @app.route("/api/alert", methods=["POST"])
 def receive_alert():
     try:
-        data = request.get_json()
+        print("Received alert data")
+        print(f"Content-Type: {request.headers.get('Content-Type')}")
+        # Check if the request is J
+        if request.is_json:
+            data = request.get_json()
+        else:
+            # For non-JSON content types, try to parse body manually
+            try:
+                data = json.loads(request.data.decode("utf-8"))
+            except:
+                # Log the raw request data for debugging
+                print(f"Raw request data: {request.data}")
+                return jsonify({"error": "Invalid JSON format"}), 400
+
+        print(f"Parsed data: {data}")
 
         if not data:
             return jsonify({"error": "No data provided"}), 400

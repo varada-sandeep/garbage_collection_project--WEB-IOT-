@@ -12,11 +12,11 @@
 #include <ArduinoJson.h>
 
 // WiFi credentials
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "sandeep";
+const char* password = "12345678";
 
 // Server API endpoint (replace with your public server URL)
-const char* serverUrl = "http://your-server-domain.com/api/alert";
+const char* serverUrl = "http://192.168.67.25:5000/api/alert";
 
 // Ultrasonic sensor pins
 const int trigPin = D1;  // GPIO5
@@ -27,16 +27,16 @@ const char* binId = "BIN004";    // Unique ID for this bin
 const int binHeight = 50;        // Height of the bin in cm
 
 // Timing configuration
-const unsigned long sendInterval = 3600000;  // Send data every hour (in milliseconds)
+const unsigned long sendInterval = 36000;  // Send data every hour (in milliseconds)
 unsigned long previousMillis = 0;
 
 // Connection retry configuration
 const int maxRetries = 5;
-const unsigned long retryDelay = 30000;  // 30 seconds between retries
+const unsigned long retryDelay = 3000;  // 30 seconds between retries
 
 void setup() {
   // Initialize Serial
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("\nGarbage Bin Fill Level Monitoring System");
   
   // Initialize ultrasonic sensor pins
